@@ -90,6 +90,8 @@ class ProxyController extends Controller
 
     public function ping()
     {
+        ob_start();
+        echo "check this string in proxy response content\r\n";
         if (!empty($_GET['q']) && ('query' == $_GET['q'])) {
             echo 'allow_get';
         }
@@ -121,5 +123,8 @@ class ProxyController extends Controller
         } else {
             echo 'proxylevel_transparent';
         }
+        $content = ob_get_clean();
+
+        return response($content, 200)->header('Content-Type', 'text/plain');;
     }
 }

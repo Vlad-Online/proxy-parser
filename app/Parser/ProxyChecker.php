@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Parser;
 
 class ProxyChecker
 {
@@ -47,7 +47,7 @@ class ProxyChecker
 
     private function getProxyContent($proxy)
     {
-        @list($proxyIp, $proxyPassword, $proxyType) = explode(',', $proxy);
+        @list($proxyIp, $proxyType, $proxyPassword) = explode(',', $proxy);
 
         $ch = \curl_init();
 

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\CheckProxy;
 use App\Parser\Finder;
 use App\Parser\Proxy;
 use GuzzleHttp\Exception\RequestException;
@@ -21,10 +22,8 @@ class PageObserver extends CrawlObserver
         $page        = (string) $response->getBody();
         $proxiesData = Finder::findProxy($page);
         foreach ($proxiesData as $proxyData) {
-            $proxy = Proxy::firstOrCreate([
-                'ip'   => DB::raw("inet_aton('{$proxyData[1]}')"),
-                'port' => $proxyData[2]
-            ]);
+            array_shift($proxyData);
+            CheckProxy::dispatch($proxyData);
         }
     }
 
