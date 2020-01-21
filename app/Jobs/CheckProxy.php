@@ -45,16 +45,18 @@ class CheckProxy implements ShouldQueue
             try {
                 $proxyString = $this->proxyData[0].':'.$this->proxyData[1].','.$type;
                 $result      = $checker->checkProxy($proxyString);
-                echo $proxyString." GOOD!\r\n";
+                //echo $proxyString." GOOD!\r\n";
+                Log::notice($proxyString." GOOD!");
                 $proxy = Proxy::firstOrCreate([
                     'ip'   => DB::raw("inet_aton('{$this->proxyData[0]}')"),
                     'port' => $this->proxyData[1],
                     'type' => $type,
                     'level' => $result['proxy_level']
                 ]);
+                break;
             } catch (\Exception $e) {
-                echo $proxyString.' '.$e->getMessage()."\r\n";
-                //Log::notice($proxyString.' '.$e->getMessage());
+                //echo $proxyString.' '.$e->getMessage()."\r\n";
+                Log::notice($proxyString.' '.$e->getMessage());
             }
 
         }
