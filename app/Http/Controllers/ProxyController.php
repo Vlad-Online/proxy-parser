@@ -112,10 +112,10 @@ class ProxyController extends Controller
             echo 'allow_user_agent';
         }
 
-//proxy levels
-//Level 3 Elite Proxy, connection looks like a regular client
-//Level 2 Anonymous Proxy, no ip is forworded but target site could still tell it's a proxy
-//Level 1 Transparent Proxy, ip is forworded and target site would be able to tell it's a proxy
+        //proxy levels
+        //Level 3 Elite Proxy, connection looks like a regular client
+        //Level 2 Anonymous Proxy, no ip is forworded but target site could still tell it's a proxy
+        //Level 1 Transparent Proxy, ip is forworded and target site would be able to tell it's a proxy
         if (!isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !isset($_SERVER['HTTP_VIA']) && !isset($_SERVER['HTTP_PROXY_CONNECTION'])) {
             echo 'proxylevel_elite';
         } elseif (!$_SERVER['HTTP_X_FORWARDED_FOR']) {

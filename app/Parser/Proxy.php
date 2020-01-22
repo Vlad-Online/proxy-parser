@@ -10,6 +10,7 @@ class Proxy extends Model
         'ip',
         'port',
         'type',
-        'level'
+        'level',
+        'alive'
     ];
 }

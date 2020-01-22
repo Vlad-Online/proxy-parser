@@ -42,8 +42,9 @@ class CheckParsed extends Command
         $proxies = Proxy::all();
         foreach ($proxies as $proxy) {
             CheckProxy::dispatch([
-                $proxy->ip,
-                $proxy->port
+                long2ip($proxy->ip),
+                $proxy->port,
+                $proxy->type
             ]);
         }
     }

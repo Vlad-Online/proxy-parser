@@ -23,7 +23,12 @@ class PageObserver extends CrawlObserver
         $proxiesData = Finder::findProxy($page);
         foreach ($proxiesData as $proxyData) {
             array_shift($proxyData);
-            CheckProxy::dispatch($proxyData);
+            $cnt = Proxy::where('ip', DB::raw("inet_aton('{$proxyData[0]}')"))->where('port', $proxyData[1])->count();
+            if (!$cnt) {
+                CheckProxy::dispatch($proxyData);
+            } else {
+                echo "{$proxyData[0]}:{$proxyData[1]} already in DB\r\n";
+            }
         }
         echo "Crawled: {$url} found ".count($proxiesData)." proxies\r\n";
     }
